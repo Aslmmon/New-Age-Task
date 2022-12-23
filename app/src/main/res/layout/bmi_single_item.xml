@@ -9,10 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="43"
-
         android:gravity="center"
         android:layout_weight="1"
-        android:id="@+id/tv_weight"
+        android:id="@+id/tv_item_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/poppins_bold_700"
