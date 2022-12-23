@@ -2,16 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/goToBmiDetailsFragment"
     app:startDestination="@id/addBmiDetailsFragment">
-
     <fragment
         android:id="@+id/addBmiDetailsFragment"
         android:name="com.example.newagetask.features.add_bmi_details.AddBmiDetailsFragment"
         android:label="fragment_add_bmi_details"
         tools:layout="@layout/fragment_add_bmi_details" >
         <action
-            android:id="@+id/action_addBmiDetailsFragment_to_bmiDetailsFragment"
+            android:id="@+id/goToBmiDetailsFragment"
             app:destination="@id/bmiDetailsFragment" />
     </fragment>
     <fragment
