@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.newagetask.R
 
-class CustomToolbar @JvmOverloads constructor(
+class CustomCompoundButtons @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
@@ -15,10 +15,10 @@ class CustomToolbar @JvmOverloads constructor(
 
 
     init {
-            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-                R.layout.custom_toolbar,
-                this,
-                true
-            )
+        (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
+            R.layout.custom_compound_button,
+            this,
+            true
+        )
     }
 }
