@@ -16,6 +16,7 @@
         <item name="fontFamily">@font/poppins_light_300</item>
 
 
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -48,4 +49,19 @@
     <style name="PoppinsRegularStyle">
         <item name="fontFamily">@font/poppins_regular_400</item>
     </style>
+
+<style name="Theme.NewAgeTask.SplashLauncher" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/splash_background</item>
+</style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.NewAgeTask</item>
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+    </style>
+
+ 
+    
+    
 </resources>
