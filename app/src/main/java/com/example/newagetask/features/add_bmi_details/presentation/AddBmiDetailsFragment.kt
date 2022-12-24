@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newagetask.R
+import com.example.newagetask.common.base.BaseActivity
 import com.example.newagetask.features.add_bmi_details.presentation.adapter.BmiCreatorAdapter
 import com.example.newagetask.features.add_bmi_details.presentation.adapter.PersonData
 import com.google.android.material.button.MaterialButton
@@ -63,6 +64,7 @@ class AddBmiDetailsFragment : Fragment() {
         initBmiCreatorData(view)
 
         view.findViewById<MaterialButton>(R.id.btn_calculate).setOnClickListener {
+            (requireActivity() as BaseActivity).showInterstitialAdd()
             navController.get().navigate(R.id.goToBmiDetailsFragment)
         }
     }
