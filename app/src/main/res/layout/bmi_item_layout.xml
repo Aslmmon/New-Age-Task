@@ -10,7 +10,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="80dp"
         android:text="@string/weightTitle"
         android:gravity="center"
         android:layout_weight="1"

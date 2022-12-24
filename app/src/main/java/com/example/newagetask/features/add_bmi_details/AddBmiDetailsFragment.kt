@@ -1,11 +1,14 @@
 package com.example.newagetask.features.add_bmi_details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newagetask.R
 import com.example.newagetask.features.add_bmi_details.adapter.BmiCreatorAdapter
@@ -17,6 +20,7 @@ class AddBmiDetailsFragment : Fragment() {
     lateinit var bmiWeightCreatorAdapter: BmiCreatorAdapter
     lateinit var bmiHeightCreatorAdapter: BmiCreatorAdapter
     lateinit var bmiGenderCreatorAdapter: BmiCreatorAdapter
+     var list = mutableListOf<PersonData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +31,19 @@ class AddBmiDetailsFragment : Fragment() {
         bmiWeightCreatorAdapter = BmiCreatorAdapter()
         bmiHeightCreatorAdapter = BmiCreatorAdapter()
         bmiGenderCreatorAdapter = BmiCreatorAdapter()
+        list = mutableListOf(
+            PersonData("1"),
+            PersonData("2"),
+            PersonData("3"),
+            PersonData("4"),
+            PersonData("5"),
+            PersonData("6"),
+            PersonData("7"),
+            PersonData("8"),
+            PersonData("9"),
+            PersonData("10"),
+
+            )
 
         return view.rootView
     }
@@ -42,36 +59,68 @@ class AddBmiDetailsFragment : Fragment() {
     }
 
     private fun initBmiCreatorData(view: View) {
-        bmiWeightCreatorAdapter.differ.submitList(
-            mutableListOf(
-                PersonData("1"),
-                PersonData("2"),
-                PersonData("3"),
-                PersonData("4"),
-                PersonData("5"),
+        val weightRecyclerView = view.findViewById<RecyclerView>(R.id.rv_weight)
+        val heightRecyclerView = view.findViewById<RecyclerView>(R.id.rv_height)
+        val genderRecyclerView = view.findViewById<RecyclerView>(R.id.rv_gender)
+        weightRecyclerView.adapter = bmiWeightCreatorAdapter
+        heightRecyclerView.adapter = bmiHeightCreatorAdapter
+       genderRecyclerView.adapter = bmiGenderCreatorAdapter
 
-            )
-        )
+        bmiWeightCreatorAdapter.differ.submitList(list)
 
-        bmiHeightCreatorAdapter.differ.submitList(
-            mutableListOf(
-                PersonData("1"),
-                PersonData("2"),
-                PersonData("3"),
-                PersonData("4"),
-                PersonData("5"),
-            )
-        )
+        bmiHeightCreatorAdapter.differ.submitList(list)
         bmiGenderCreatorAdapter.differ.submitList(
             mutableListOf(
                 PersonData("Male"),
                 PersonData("Female"),
             )
         )
-        view.findViewById<RecyclerView>(R.id.rv_weight).adapter = bmiWeightCreatorAdapter
-        view.findViewById<RecyclerView>(R.id.rv_height).adapter = bmiHeightCreatorAdapter
-        view.findViewById<RecyclerView>(R.id.rv_gender).adapter = bmiGenderCreatorAdapter
+
+        setSelectionToRecyclerView(view,weightRecyclerView,bmiWeightCreatorAdapter)
+        setSelectionToRecyclerView(view,heightRecyclerView,bmiHeightCreatorAdapter)
+        setSelectionToRecyclerView(view,genderRecyclerView,bmiGenderCreatorAdapter)
+
+    }
+
+    private fun setSelectionToRecyclerView(view: View,recyclerView: RecyclerView, adapter: BmiCreatorAdapter) {
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addOnScrollListener(
+            MiddleItemFinder(
+                requireContext(), layoutManager,list, adapter
+            )
+        )
     }
 
 
+}
+
+
+
+class MiddleItemFinder(
+    context: Context,
+    layoutManager: LinearLayoutManager,
+    var list: MutableList<PersonData>,
+    var adapter: BmiCreatorAdapter
+) :
+    RecyclerView.OnScrollListener() {
+    private val context: Context
+    private val layoutManager: LinearLayoutManager
+    init {
+        this.context = context
+        this.layoutManager = layoutManager
+    }
+
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        val firstItem: Int = layoutManager.findFirstCompletelyVisibleItemPosition()
+        val lastItem: Int = layoutManager.findLastCompletelyVisibleItemPosition()
+
+        if (list.size == 1) {
+            adapter.setSelectedItem(0)
+        } else if (lastItem == list.size - 1) {
+            adapter.setSelectedItem(list.size -2)
+        } else {
+            adapter.setSelectedItem(firstItem+1)
+        }
+    }
 }

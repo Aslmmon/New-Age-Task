@@ -1,4 +1,8 @@
 package com.example.newagetask.features.add_bmi_details.adapter
+
+import android.graphics.Color
+import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +14,27 @@ import com.example.newagetask.R
 
 
 class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var selected_position = 0 // You have to set this globally in the Adapter class
+
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolderItemLayout).setData(differ.currentList[position])
         holder.setIsRecyclable(false)
+        if (selected_position == position){
+            holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTypeface(null, Typeface.BOLD);
+            holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTextColor(holder.itemView.resources.getColor(R.color.primary))
+            holder.itemView.findViewById<View>(R.id.view).visibility = View.VISIBLE
+
+        }else{
+            holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTextColor(holder.itemView.resources.getColor(R.color.gray_color))
+            holder.itemView.findViewById<View>(R.id.view).visibility = View.GONE
+
+        }
+
+    }
+    fun setSelectedItem(newPosition: Int){
+        selected_position = newPosition
+        notifyDataSetChanged()
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
