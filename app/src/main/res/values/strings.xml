@@ -9,4 +9,5 @@
     <string name="weightTitle">Weight</string>
     <string name="heightTitle">Height</string>
     <string name="genderTitle">Gender</string>
+    <string name="add_bmi_details">Add BMI Details</string>
 </resources>

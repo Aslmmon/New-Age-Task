@@ -12,4 +12,11 @@
     <dimen name="twenty_two">22dp</dimen>
     <dimen name="sixten">16dp</dimen>
     <dimen name="fourty_five">45dp</dimen>
+    <dimen name="eighty_seven">87dp</dimen>
+    <dimen name="twenty_one">21sp</dimen>
+    <dimen name="twenty_five">25dp</dimen>
+    <dimen name="eighty">80dp</dimen>
+    <dimen name="ninty">90dp</dimen>
+    <dimen name="thirty">30dp</dimen>
+    <dimen name="eighten">18dp</dimen>
 </resources>
