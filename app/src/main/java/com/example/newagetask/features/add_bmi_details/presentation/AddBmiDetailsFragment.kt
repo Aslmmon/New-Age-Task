@@ -73,7 +73,7 @@ class AddBmiDetailsFragment : Fragment() {
                 when(it.status){
                     Status.SUCCESS->{
                         sharedViewModel.setPersonData(personResultData = it.data ?: PersonResultData())
-                     //   (requireActivity() as BaseActivity).showInterstitialAdd()
+                        (requireActivity() as BaseActivity).showInterstitialAdd()
                         findNavController().navigate(R.id.goToBmiDetailsFragment)
                     }
                     Status.ERROR ->{}
