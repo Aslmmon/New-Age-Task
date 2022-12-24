@@ -16,7 +16,9 @@ import androidx.lifecycle.Observer
 import com.example.newagetask.R
 import com.example.newagetask.common.CustomCompoundButtons
 import com.example.newagetask.common.base.BaseActivity
+import com.example.newagetask.common.getScreenshotFromView
 import com.example.newagetask.common.navigateToGooglePlay
+import com.example.newagetask.common.saveBitmapToGallery
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 import com.google.android.gms.ads.nativead.NativeAdView
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,10 @@ class BmiDetailsFragment : Fragment() {
             requireActivity().navigateToGooglePlay()
         }
         view.findViewById<CustomCompoundButtons>(R.id.custom_share_button).setOnClickListener {
+            with(requireActivity()){
+                saveBitmapToGallery(getScreenshotFromView(view.findViewById(R.id.view_constraint)))
+            }
+
         }
         sharedViewModel.personResultData.observe(requireActivity(), Observer {
             bindDataToViews(it, view)
@@ -85,3 +91,4 @@ class BmiDetailsFragment : Fragment() {
 
 
 }
+
