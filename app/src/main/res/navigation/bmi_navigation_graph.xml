@@ -5,7 +5,7 @@
     app:startDestination="@id/addBmiDetailsFragment">
     <fragment
         android:id="@+id/addBmiDetailsFragment"
-        android:name="com.example.newagetask.features.add_bmi_details.AddBmiDetailsFragment"
+        android:name="com.example.newagetask.features.add_bmi_details.presentation.AddBmiDetailsFragment"
         android:label="fragment_add_bmi_details"
         tools:layout="@layout/fragment_add_bmi_details" >
         <action
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/bmiDetailsFragment"
-        android:name="com.example.newagetask.features.bmi_details.BmiDetailsFragment"
+        android:name="com.example.newagetask.features.bmi_details.presentation.BmiDetailsFragment"
         android:label="fragment_bmi_details"
         tools:layout="@layout/fragment_bmi_details" />
 </navigation>

@@ -1,8 +1,6 @@
-package com.example.newagetask.features.add_bmi_details.adapter
+package com.example.newagetask.features.add_bmi_details.presentation.adapter
 
-import android.graphics.Color
 import android.graphics.Typeface
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

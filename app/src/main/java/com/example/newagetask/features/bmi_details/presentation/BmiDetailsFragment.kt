@@ -1,4 +1,4 @@
-package com.example.newagetask.features.bmi_details
+package com.example.newagetask.features.bmi_details.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.newagetask.R
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BmiDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

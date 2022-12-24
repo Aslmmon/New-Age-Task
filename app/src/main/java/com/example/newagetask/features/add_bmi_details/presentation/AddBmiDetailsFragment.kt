@@ -1,4 +1,4 @@
-package com.example.newagetask.features.add_bmi_details
+package com.example.newagetask.features.add_bmi_details.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -7,20 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newagetask.R
-import com.example.newagetask.features.add_bmi_details.adapter.BmiCreatorAdapter
-import com.example.newagetask.features.add_bmi_details.adapter.PersonData
+import com.example.newagetask.features.add_bmi_details.presentation.adapter.BmiCreatorAdapter
+import com.example.newagetask.features.add_bmi_details.presentation.adapter.PersonData
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import javax.inject.Provider
 
 
+@AndroidEntryPoint
 class AddBmiDetailsFragment : Fragment() {
     lateinit var bmiWeightCreatorAdapter: BmiCreatorAdapter
     lateinit var bmiHeightCreatorAdapter: BmiCreatorAdapter
     lateinit var bmiGenderCreatorAdapter: BmiCreatorAdapter
      var list = mutableListOf<PersonData>()
+
+    @Inject
+    lateinit var navController: Provider<NavController>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +63,7 @@ class AddBmiDetailsFragment : Fragment() {
         initBmiCreatorData(view)
 
         view.findViewById<MaterialButton>(R.id.btn_calculate).setOnClickListener {
-            findNavController().navigate(R.id.goToBmiDetailsFragment)
+            navController.get().navigate(R.id.goToBmiDetailsFragment)
         }
     }
 
