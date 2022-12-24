@@ -8,14 +8,17 @@ import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.newagetask.R
 import com.example.newagetask.common.CustomCompoundButtons
+import com.example.newagetask.common.base.BaseActivity
 import com.example.newagetask.common.navigateToGooglePlay
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
+import com.google.android.gms.ads.nativead.NativeAdView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -36,6 +39,8 @@ class BmiDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       // (requireActivity() as BaseActivity).showNativeAds(R.id.native_add,view.findViewById<FrameLayout>(R.id.ad_frame))
+
         bmiResultTextView = view.findViewById<TextView>(R.id.tv_bmi_result)
         view.findViewById<CustomCompoundButtons>(R.id.custom_rate_button).setOnClickListener {
             requireActivity().navigateToGooglePlay()

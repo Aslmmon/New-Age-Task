@@ -1,22 +1,31 @@
 package com.example.newagetask.common.base
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.newagetask.R
 import com.google.android.gms.ads.*
+import com.google.android.gms.ads.formats.MediaView
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 const val AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
 const val NATIVE_UNIT_ID = "ca-app-pub-3940256099942544/2247696110"
+const val AD_MANAGER_AD_UNIT_ID = "/6499/example/native"
+
 
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {
+    var currentUnifiedNativeAd: NativeAd? = null
 
     private var mInterstitialAd: InterstitialAd? = null
     private var adLoader:AdLoader?=null
@@ -45,26 +54,56 @@ abstract class BaseActivity : AppCompatActivity() {
         listenForEventsOfLoadedAd()
     }
 
-    fun showNativeAds(nativeAdLayoutId:Int){
-        adLoader = AdLoader.Builder(this, NATIVE_UNIT_ID)
-            .forNativeAd { nativeAd ->
-                // Assumes that your ad layout is in a file call native_ad_layout.xml
-                // in the res/layout folder
-                if (isDestroyed){
-                    nativeAd.destroy()
-                    return@forNativeAd
+    fun showNativeAds(nativeAdLayoutId:Int, frame:FrameLayout){
+
+        val builder = AdLoader.Builder(this, AD_MANAGER_AD_UNIT_ID)
+
+        builder.forNativeAd {  nativeAd->
+            // If this callback occurs after the activity is destroyed, you must call
+            // destroy and return or you may get a memory leak.
+            var activityDestroyed = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                activityDestroyed = isDestroyed
+            }
+            if (activityDestroyed || isFinishing || isChangingConfigurations) {
+                 nativeAd.destroy()
+                return@forNativeAd
+            }
+
+            // You must call destroy on old ads when you are done with them,
+            // otherwise you will have a memory leak.
+            currentUnifiedNativeAd?.destroy()
+            currentUnifiedNativeAd = nativeAd
+            val adView = layoutInflater.inflate(nativeAdLayoutId, null) as NativeAdView
+            populateUnifiedNativeAdView(nativeAd, adView)
+            frame.removeAllViews()
+            frame.addView(adView)
+
+            val adLoader = builder.withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                    val error = """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}
+          """
+                    Toast.makeText(
+                        this@BaseActivity, "Failed to load native ad with error $error",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                val adView = layoutInflater
-                    .inflate(nativeAdLayoutId, null) as NativeAdView
-                // This method sets the text, images and the native ad, etc into the ad
-                // view.
-//                populateNativeAdView(nativeAd, adView)
-//                // Assumes you have a placeholder FrameLayout in your View layout
-//                // (with id ad_frame) where the ad is to be placed.
-//                ad_frame.removeAllViews()
-//                ad_frame.addView(adView)
-            }.build()
-        adLoader?.loadAd(AdRequest.Builder().build())
+            }).build()
+
+            adLoader.loadAd(AdRequest.Builder().build())
+
+            val adLoader2 = AdLoader.Builder(this, NATIVE_UNIT_ID)
+            .withAdListener(object : AdListener() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Toast.makeText(
+                    this@BaseActivity, "Failed to load native ad with error $adError",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // Handle the failure by logging, altering the UI, and so on.
+            }
+        })
+            .build()
+        }
     }
 
 
@@ -98,6 +137,80 @@ abstract class BaseActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         loadAds()
     }
+
+    private fun populateUnifiedNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        // Set the media view.
+        //adView.mediaView = adView.findViewById<MediaView>(R.id.ad_media)
+
+        // Set other ad assets.
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+        adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+        adView.advertiserView = adView.findViewById(R.id.ad_advertiser)
+
+        // The headline and media content are guaranteed to be in every UnifiedNativeAd.
+        (adView.headlineView as TextView).text = nativeAd.headline
+        adView.mediaView?.setMediaContent(nativeAd.mediaContent)
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.body == null) {
+            adView.bodyView?.visibility = View.INVISIBLE
+        } else {
+            adView.bodyView?.visibility = View.VISIBLE
+            (adView.bodyView as TextView).text = nativeAd.body
+        }
+
+        if (nativeAd.callToAction == null) {
+            adView.callToActionView?.visibility = View.INVISIBLE
+        } else {
+            adView.callToActionView?.visibility = View.VISIBLE
+            (adView.callToActionView as Button).text = nativeAd.callToAction
+        }
+
+        if (nativeAd.icon == null) {
+            adView.iconView?.visibility = View.GONE
+        } else {
+            (adView.iconView as ImageView).setImageDrawable(
+                nativeAd.icon?.drawable
+            )
+            adView.iconView?.visibility = View.VISIBLE
+        }
+
+        if (nativeAd.price == null) {
+            adView.priceView?.visibility = View.INVISIBLE
+        } else {
+            adView.priceView?.visibility = View.VISIBLE
+            (adView.priceView as TextView).text = nativeAd.price
+        }
+
+        if (nativeAd.store == null) {
+            adView.storeView?.visibility = View.INVISIBLE
+        } else {
+            adView.storeView?.visibility = View.VISIBLE
+            (adView.storeView as TextView).text = nativeAd.store
+        }
+
+        if (nativeAd.starRating == null) {
+            adView.starRatingView?.visibility = View.INVISIBLE
+        } else {
+            (adView.starRatingView as RatingBar).rating = nativeAd.starRating!!.toFloat()
+            adView.starRatingView?.visibility = View.VISIBLE
+        }
+
+        if (nativeAd.advertiser == null) {
+            adView.advertiserView?.visibility = View.INVISIBLE
+        } else {
+            (adView.advertiserView as TextView).text = nativeAd.advertiser
+            adView.advertiserView?.visibility = View.VISIBLE
+        }
+
+        // This method tells the Google Mobile Ads SDK that you have finished populating your
+        // native ad view with this native ad.
+        adView.setNativeAd(nativeAd)
+
+    }
+
 
     fun showInterstitialAdd(){
         if (mInterstitialAd != null) {
