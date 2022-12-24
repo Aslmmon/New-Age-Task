@@ -31,10 +31,17 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     }
+
+    /**
+     * needed to be refactored
+     */
     fun setSelectedItem(newPosition: Int){
         selected_position = newPosition
         notifyDataSetChanged()
     }
+
+    fun getItemSelected() = differ.currentList[selected_position]
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

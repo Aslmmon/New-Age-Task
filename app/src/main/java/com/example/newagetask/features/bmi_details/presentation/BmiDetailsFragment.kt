@@ -40,6 +40,6 @@ class BmiDetailsFragment : Fragment() {
 
     private fun bindDataToViews(it: PersonResultData?, view: View) {
        view.findViewById<TextView>(R.id.tv_bmi_result).text = it?.bmiResult
-        view.findViewById<TextView>(R.id.tv_bmi_result_description).text="hello ${it?.bmiResult} you are ${it?.panderalIndexResult}"
+        view.findViewById<TextView>(R.id.tv_bmi_result_description).text="hello ${it?.bmiResultStatus} you are ${it?.panderalIndexResult}"
     }
 }

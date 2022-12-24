@@ -1,6 +1,7 @@
 package com.example.newagetask.features.add_bmi_details.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,11 +64,12 @@ class AddBmiDetailsFragment : Fragment() {
         })
 
         view.findViewById<MaterialButton>(R.id.btn_calculate).setOnClickListener {
-            addBmiViewModel.calculatePersonBMI(PersonProfile(20,20,1)).observe(requireActivity(), Observer {
+            val triple = Triple(bmiWeightCreatorAdapter.getItemSelected(),bmiHeightCreatorAdapter.getItemSelected(),bmiGenderCreatorAdapter.getItemSelected())
+            addBmiViewModel.calculatePersonBMI(PersonProfile(weight = triple.first.toDouble(), height = triple.second.toDouble(),triple.third)).observe(requireActivity(), Observer {
                 when(it.status){
                     Status.SUCCESS->{
                         sharedViewModel.setPersonData(personResultData = it.data ?: PersonResultData())
-                        (requireActivity() as BaseActivity).showInterstitialAdd()
+                     //   (requireActivity() as BaseActivity).showInterstitialAdd()
                         findNavController().navigate(R.id.goToBmiDetailsFragment)
                     }
                     Status.ERROR ->{}

@@ -1,3 +1,3 @@
 package com.example.newagetask.features.add_bmi_details.data.model
 
-data class PersonProfile(var weight:Int,var height:Int,var gender:Int)
+data class PersonProfile(var weight:Double,var height:Double,var gender:Int)

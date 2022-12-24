@@ -45,6 +45,7 @@
         <TextView
             android:id="@+id/tv_bmi_result"
             android:layout_width="match_parent"
+            android:ellipsize="start"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="18.61"

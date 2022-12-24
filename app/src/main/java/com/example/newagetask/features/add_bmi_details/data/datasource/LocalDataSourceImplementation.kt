@@ -1,20 +1,60 @@
 package com.example.newagetask.features.add_bmi_details.data.datasource
 
+import android.util.Log
+import com.example.newagetask.common.roundOffTwoDecimalPoints
 import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 
-const val minimumWeight = 2
-const val maximumWeight=100
-const val minimumHeight=2
-const val maximumHeight=250
+const val minimumWeight = 20
+const val maximumWeight = 150
+const val minimumHeight = 50
+const val maximumHeight = 200
+
 class LocalDataSourceImplementation : DataSource {
     override fun getPersondata(): PersonData {
-        return PersonData((minimumWeight..maximumWeight).toMutableList(), (minimumHeight..maximumHeight).toMutableList(), (0..2).toMutableList(),)
+        return PersonData(
+            (minimumWeight..maximumWeight).toMutableList(),
+            (minimumHeight..maximumHeight).toMutableList(),
+            (0..2).toMutableList(),
+        )
     }
 
     override fun calculateBMI(personProfile: PersonProfile): PersonResultData {
-        return PersonResultData(bmiResult = "test", bmiResultStatus = "normal", panderalIndexResult = "eshta")
+        val bmiResult = calculateBodyMassIndex(personProfile)
+        val bmiStatus = getBMIStatus(bmiResult = bmiResult)
+        val panderalIndex = getPanderalIndex(personProfile)
+
+        return PersonResultData(
+            bmiResult = bmiResult.roundOffTwoDecimalPoints().toString(),
+            bmiResultStatus = bmiStatus,
+            panderalIndexResult = panderalIndex.toString()
+        )
     }
 
+    private fun calculateBodyMassIndex(personProfile: PersonProfile) =
+        (personProfile.weight.div(personProfile.height * personProfile.height)) * 10000
+
+    private fun getBMIStatus(bmiResult: Double): String {
+        return when (true) {
+            (bmiResult < 18.5) -> BMI_WEIGHT_STATUS.Underweight.name
+            (bmiResult > 18.5 && bmiResult < 24.9) -> BMI_WEIGHT_STATUS.Healthy.name
+            (bmiResult > 25.0 && bmiResult < 29.9) -> BMI_WEIGHT_STATUS.Overweight.name
+            (bmiResult > 30.0) -> BMI_WEIGHT_STATUS.Obesity.name
+
+            else -> BMI_WEIGHT_STATUS.Undefined.name
+        }
+    }
+
+    private fun getPanderalIndex(personProfile: PersonProfile): Double {
+        val ponderalIndex: Double = personProfile.weight.div(Math.cbrt(personProfile.height))
+        return ponderalIndex
+
+    }
+
+
+}
+
+enum class BMI_WEIGHT_STATUS {
+    Underweight, Healthy, Overweight, Obesity, Undefined
 }
