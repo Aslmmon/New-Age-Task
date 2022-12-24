@@ -13,9 +13,9 @@ const val maximumHeight = 200
 class LocalDataSourceImplementation : DataSource {
     override fun getPersondata(): PersonData {
         return PersonData(
-            (minimumWeight..maximumWeight).toMutableList(),
-            (minimumHeight..maximumHeight).toMutableList(),
-            (0..2).toMutableList(),
+            (minimumWeight..maximumWeight).map { it->it.toString() }.toMutableList(),
+            (minimumHeight..maximumHeight).map { it->it.toString() }.toMutableList(),
+            mutableListOf("Male","Female"),
         )
     }
 

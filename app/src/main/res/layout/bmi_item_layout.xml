@@ -11,13 +11,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:weightSum="3"
-    android:padding="@dimen/ten"
-
+    android:padding="@dimen/twelve_dp"
     >
 
     <androidx.recyclerview.widget.RecyclerView
         android:text="@string/weightTitle"
         tools:itemCount="10"
+        android:layout_height="@dimen/one_fifity"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/bmi_single_item"
         android:id="@+id/rv_weight"
@@ -29,8 +29,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
-        android:layout_height="120dp"
         android:text="@string/heightTitle"
+        android:layout_height="@dimen/one_fifity"
         style="@style/bodyMassIndexRecyclerViewStyle"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rv_height"
@@ -41,7 +41,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="@dimen/one_fifity"
+
         style="@style/bodyMassIndexRecyclerViewStyle"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rv_gender"

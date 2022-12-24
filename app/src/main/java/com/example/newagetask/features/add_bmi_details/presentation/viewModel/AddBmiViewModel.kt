@@ -24,7 +24,6 @@ class AddBmiViewModel @Inject constructor(
         try {
             val result = getPersonsDataUseCase.getPersonData()
             emit(Resource.success(data = result))
-
         } catch (exception: Exception) {
             emit(
                 Resource.error(
@@ -37,9 +36,8 @@ class AddBmiViewModel @Inject constructor(
     fun calculatePersonBMI(personProfile: PersonProfile) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            val result = calculateBodyMassIndexUseCase.calculateBMIforPersonse(personProfile)
+            val result = calculateBodyMassIndexUseCase.calculateBMIforPersons(personProfile)
             emit(Resource.success(data = result))
-
         } catch (exception: Exception) {
             emit(
                 Resource.error(

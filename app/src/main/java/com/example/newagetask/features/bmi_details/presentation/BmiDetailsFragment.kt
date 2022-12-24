@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.newagetask.MainActivity
 import com.example.newagetask.R
 import com.example.newagetask.common.CustomCompoundButtons
 import com.example.newagetask.common.base.BaseActivity
@@ -41,6 +42,7 @@ class BmiDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        changeToolbarTitle()
        // (requireActivity() as BaseActivity).showNativeAds(R.id.native_add,view.findViewById<FrameLayout>(R.id.ad_frame))
 
         bmiResultTextView = view.findViewById<TextView>(R.id.tv_bmi_result)
@@ -58,6 +60,7 @@ class BmiDetailsFragment : Fragment() {
         })
 
     }
+    private fun changeToolbarTitle()  = (requireActivity() as MainActivity).changeToolbarName(resources.getString(R.string.bmi_details))
 
     private fun bindDataToViews(it: PersonResultData?, view: View) {
         bmiResultTextView.text = processStringtoBeWithDifferentFont(it)

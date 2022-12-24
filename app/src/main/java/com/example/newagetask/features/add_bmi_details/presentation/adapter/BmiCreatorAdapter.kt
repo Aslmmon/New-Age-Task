@@ -29,6 +29,9 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.itemView.findViewById<View>(R.id.view).visibility = View.GONE
 
         }
+        holder.itemView.setOnClickListener {
+            setSelectedItem(position)
+        }
 
     }
 
@@ -54,16 +57,17 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = differ.currentList.size
 
     inner class ViewHolderItemLayout(var view: View) : RecyclerView.ViewHolder(view) {
-        fun setData(item: Int) {
-            view.findViewById<TextView>(R.id.tv_item_text).text = item.toString()
+        fun setData(item: String) {
+            view.findViewById<TextView>(R.id.tv_item_text).text = item
+
         }
     }
-    private val differCallback = object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
