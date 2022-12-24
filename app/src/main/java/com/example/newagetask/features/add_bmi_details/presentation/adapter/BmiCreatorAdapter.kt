@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newagetask.R
+import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 
 
 class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -46,16 +47,16 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = differ.currentList.size
 
     inner class ViewHolderItemLayout(var view: View) : RecyclerView.ViewHolder(view) {
-        fun setData(item: PersonData) {
-            view.findViewById<TextView>(R.id.tv_item_text).text = item.id.toString()
+        fun setData(item: Int) {
+            view.findViewById<TextView>(R.id.tv_item_text).text = item.toString()
         }
     }
-    private val differCallback = object : DiffUtil.ItemCallback<PersonData>() {
-        override fun areItemsTheSame(oldItem: PersonData, newItem: PersonData): Boolean {
-            return oldItem.id == newItem.id
+    private val differCallback = object : DiffUtil.ItemCallback<Int>() {
+        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: PersonData, newItem: PersonData): Boolean {
+        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
             return oldItem == newItem
         }
 
@@ -64,5 +65,4 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
 }
-data class PersonData(var id:String)
 

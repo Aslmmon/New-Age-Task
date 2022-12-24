@@ -26,6 +26,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -39,6 +45,8 @@ android {
 dependencies {
     def nav_version = "2.5.3"
     def hilt_version = "2.44"
+    def lifecycle_version = "2.5.1"
+
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -59,14 +67,17 @@ dependencies {
      * hilt dependency
      */
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
     /**
      * google services ads
      */
-
-
     implementation 'com.google.android.gms:play-services-ads:21.4.0'
+    /**
+     * LiveData
+     */
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
 
 
 }

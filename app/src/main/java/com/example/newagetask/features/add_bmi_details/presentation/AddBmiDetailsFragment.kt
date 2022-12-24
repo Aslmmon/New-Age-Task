@@ -5,16 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newagetask.R
 import com.example.newagetask.common.base.BaseActivity
+import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.presentation.adapter.BmiCreatorAdapter
-import com.example.newagetask.features.add_bmi_details.presentation.adapter.PersonData
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -27,6 +27,8 @@ class AddBmiDetailsFragment : Fragment() {
     lateinit var bmiHeightCreatorAdapter: BmiCreatorAdapter
     lateinit var bmiGenderCreatorAdapter: BmiCreatorAdapter
      var list = mutableListOf<PersonData>()
+    private val addBmiViewModel: AddBmiViewModel by viewModels()
+
 
     @Inject
     lateinit var navController: Provider<NavController>
@@ -41,19 +43,6 @@ class AddBmiDetailsFragment : Fragment() {
         bmiWeightCreatorAdapter = BmiCreatorAdapter()
         bmiHeightCreatorAdapter = BmiCreatorAdapter()
         bmiGenderCreatorAdapter = BmiCreatorAdapter()
-        list = mutableListOf(
-            PersonData("1"),
-            PersonData("2"),
-            PersonData("3"),
-            PersonData("4"),
-            PersonData("5"),
-            PersonData("6"),
-            PersonData("7"),
-            PersonData("8"),
-            PersonData("9"),
-            PersonData("10"),
-
-            )
 
         return view.rootView
     }
@@ -63,10 +52,26 @@ class AddBmiDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initBmiCreatorData(view)
 
+        addBmiViewModel.getPersonsData().observe(requireActivity(), Observer {
+            when(it.status){
+                Status.SUCCESS->{
+                    submitDataToAdapter(it.data)
+                }
+                Status.ERROR ->{}
+                Status.LOADING ->{}
+            }
+        })
+
         view.findViewById<MaterialButton>(R.id.btn_calculate).setOnClickListener {
             (requireActivity() as BaseActivity).showInterstitialAdd()
             navController.get().navigate(R.id.goToBmiDetailsFragment)
         }
+    }
+
+    private fun submitDataToAdapter(personData: PersonData?) {
+        bmiWeightCreatorAdapter.differ.submitList(personData?.weightList)
+        bmiHeightCreatorAdapter.differ.submitList(personData?.heightList)
+        bmiGenderCreatorAdapter.differ.submitList(personData?.genederList)
     }
 
     private fun initBmiCreatorData(view: View) {
@@ -77,15 +82,7 @@ class AddBmiDetailsFragment : Fragment() {
         heightRecyclerView.adapter = bmiHeightCreatorAdapter
        genderRecyclerView.adapter = bmiGenderCreatorAdapter
 
-        bmiWeightCreatorAdapter.differ.submitList(list)
 
-        bmiHeightCreatorAdapter.differ.submitList(list)
-        bmiGenderCreatorAdapter.differ.submitList(
-            mutableListOf(
-                PersonData("Male"),
-                PersonData("Female"),
-            )
-        )
 
         setSelectionToRecyclerView(view,weightRecyclerView,bmiWeightCreatorAdapter)
         setSelectionToRecyclerView(view,heightRecyclerView,bmiHeightCreatorAdapter)
