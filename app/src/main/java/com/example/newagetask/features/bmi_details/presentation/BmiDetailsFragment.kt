@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.newagetask.R
-import com.google.android.material.button.MaterialButton
+import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BmiDetailsFragment : Fragment() {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,14 @@ class BmiDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedViewModel.personResultData.observe(requireActivity(), Observer {
+            bindDataToViews(it,view)
+        })
 
+    }
+
+    private fun bindDataToViews(it: PersonResultData?, view: View) {
+       view.findViewById<TextView>(R.id.tv_bmi_result).text = it?.bmiResult
+        view.findViewById<TextView>(R.id.tv_bmi_result_description).text="hello ${it?.bmiResult} you are ${it?.panderalIndexResult}"
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,7 +15,9 @@ import com.example.newagetask.R
 import com.example.newagetask.common.base.BaseActivity
 import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
+import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 import com.example.newagetask.features.add_bmi_details.presentation.adapter.BmiCreatorAdapter
+import com.example.newagetask.features.bmi_details.presentation.SharedViewModel
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +29,7 @@ class AddBmiDetailsFragment : Fragment() {
     lateinit var bmiGenderCreatorAdapter: BmiCreatorAdapter
      var list = mutableListOf<PersonData>()
     private val addBmiViewModel: AddBmiViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
 
@@ -62,6 +66,7 @@ class AddBmiDetailsFragment : Fragment() {
             addBmiViewModel.calculatePersonBMI(PersonProfile(20,20,1)).observe(requireActivity(), Observer {
                 when(it.status){
                     Status.SUCCESS->{
+                        sharedViewModel.setPersonData(personResultData = it.data ?: PersonResultData())
                         (requireActivity() as BaseActivity).showInterstitialAdd()
                         findNavController().navigate(R.id.goToBmiDetailsFragment)
                     }
