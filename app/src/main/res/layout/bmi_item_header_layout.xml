@@ -8,44 +8,28 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/weightTitle"
-        android:gravity="center"
-        android:layout_weight="1"
         android:id="@+id/tv_weight_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/poppins_bold_700"
-        android:textSize="40px"
+        style="@style/headerItemsFontStyle"
         />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/headerItemsFontStyle"
         android:text="@string/heightTitle"
-        android:gravity="center"
-
-        android:layout_weight="1"
         android:id="@+id/tv_height_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/poppins_bold_700"
-        android:textSize="40px"
         />
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/genderTitle"
-        android:gravity="center"
-        android:layout_weight="1"
+        style="@style/headerItemsFontStyle"
         android:id="@+id/tv_gender_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/poppins_bold_700"
-        android:textSize="40px"
         />
 
 

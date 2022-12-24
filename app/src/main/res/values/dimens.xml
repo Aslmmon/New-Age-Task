@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_dob_width">20</dimen>
+    <dimen name="sixty_dp">60dp</dimen>
+    <dimen name="fourty_eight">48dp</dimen>
+    <dimen name="fifty">50dp</dimen>
+    <dimen name="fifty_five">55dp</dimen>
+    <dimen name="twenty_six">26dp</dimen>
+    <dimen name="ten">10dp</dimen>
+    <dimen name="one">1dp</dimen>
+    <dimen name="five">5dp</dimen>
+    <dimen name="twenty_two">22dp</dimen>
+    <dimen name="sixten">16dp</dimen>
+    <dimen name="fourty_five">45dp</dimen>
 </resources>

@@ -11,26 +11,33 @@
         android:layout_height="wrap_content"
         android:text="@string/enter_personal_details"
         style="@style/RalewayRegualrStyle"
+        android:textColor="@color/primary"
         android:id="@+id/tv_enter_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/fifty_five"
         />
 
     <EditText
         android:id="@+id/ed_name_user"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="@dimen/fourty_five"
+        android:layout_marginHorizontal="@dimen/fifty"
+        android:layout_marginTop="@dimen/twenty_six"
         android:background="@drawable/rounded_shape"
-        android:gravity="start|center"
+        android:paddingStart="@dimen/ten"
+        android:textCursorDrawable="@null"
+        android:singleLine="true"
+        android:paddingEnd="@dimen/ten"
+        android:maxLength="100"
+        android:gravity="center_vertical"
         android:hint="@string/name_title"
-        android:textColor="#19769F"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_enter_details" />
+        app:layout_constraintTop_toBottomOf="@id/tv_enter_details"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ed_name_user"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/fourty_eight"
         />
 
     <include
@@ -52,6 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_calculate_body_title"
         android:id="@+id/header"
+        android:layout_marginTop="@dimen/twenty_two"
         layout="@layout/bmi_item_header_layout">
     </include>
 
@@ -62,26 +70,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:id="@+id/body"
+        android:layout_marginTop="@dimen/sixten"
         layout="@layout/bmi_item_layout">
     </include>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:id="@+id/recycler"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/header"-->
-
-<!--        />-->
 
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/calculate_title"
-        android:textAppearance="@string/calculate_title"
         android:id="@+id/btn_calculate"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="10dp"

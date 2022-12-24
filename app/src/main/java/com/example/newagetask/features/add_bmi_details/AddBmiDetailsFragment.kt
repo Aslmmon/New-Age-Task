@@ -28,6 +28,8 @@ class AddBmiDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_bmi_details, container, false)
+
+        Toast.makeText(requireContext(), getDpFromPx(70).toString(), Toast.LENGTH_SHORT).show()
         bmiWeightCreatorAdapter = BmiCreatorAdapter()
         bmiHeightCreatorAdapter = BmiCreatorAdapter()
         bmiGenderCreatorAdapter = BmiCreatorAdapter()
@@ -92,6 +94,10 @@ class AddBmiDetailsFragment : Fragment() {
         )
     }
 
+    fun getDpFromPx(px:Int): Int {
+       val displayMetrics = context?.resources?.displayMetrics;
+        return  ((px/ displayMetrics?.density!!)+0.5).toInt()
+    }
 
 }
 
