@@ -1,6 +1,8 @@
 package com.example.newagetask.features.add_bmi_details.domain.di
 
 import com.example.newagetask.features.add_bmi_details.domain.repository.PersonDataRepository
+import com.example.newagetask.features.add_bmi_details.domain.usecase.CalculateBodyMassIndexUseCase
+import com.example.newagetask.features.add_bmi_details.domain.usecase.CalculateBodyMassIndexUseCaseImplementation
 import com.example.newagetask.features.add_bmi_details.domain.usecase.GetPersonDataUseCase
 import com.example.newagetask.features.add_bmi_details.domain.usecase.GetPersonDataUseCaseImplementation
 import dagger.Module
@@ -16,6 +18,12 @@ class Domain_di {
     @Provides
     fun bindGetPersonsData(persoDataRepo: PersonDataRepository): GetPersonDataUseCase {
         return GetPersonDataUseCaseImplementation(persoDataRepo)
+    }
+
+
+    @Provides
+    fun bindCalculatePersonBMIData(persoDataRepo: PersonDataRepository): CalculateBodyMassIndexUseCase {
+        return CalculateBodyMassIndexUseCaseImplementation(persoDataRepo)
     }
 
 

@@ -3,6 +3,8 @@ package com.example.newagetask.features.add_bmi_details.presentation
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
+import com.example.newagetask.features.add_bmi_details.domain.usecase.CalculateBodyMassIndexUseCase
 import com.example.newagetask.features.add_bmi_details.domain.usecase.GetPersonDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AddBmiViewModel @Inject constructor(
     private val getPersonsDataUseCase: GetPersonDataUseCase,
+    private val calculateBodyMassIndexUseCase: CalculateBodyMassIndexUseCase,
+
     ) : ViewModel()
 {
 
@@ -19,6 +23,21 @@ class AddBmiViewModel @Inject constructor(
         emit(Resource.loading(data = null))
         try {
             val result = getPersonsDataUseCase.getPersonData()
+            emit(Resource.success(data = result))
+
+        } catch (exception: Exception) {
+            emit(
+                Resource.error(
+                    exception.message.toString()
+                )
+            )
+        }
+    }
+
+    fun calculatePersonBMI(personProfile: PersonProfile) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            val result = calculateBodyMassIndexUseCase.calculateBMIforPersonse(personProfile)
             emit(Resource.success(data = result))
 
         } catch (exception: Exception) {
