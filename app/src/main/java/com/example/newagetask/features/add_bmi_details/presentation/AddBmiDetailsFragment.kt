@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -31,6 +32,7 @@ class AddBmiDetailsFragment : Fragment() {
      var list = mutableListOf<PersonData>()
     private val addBmiViewModel: AddBmiViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    lateinit var userNameEditText:EditText
 
 
 
@@ -40,6 +42,7 @@ class AddBmiDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_bmi_details, container, false)
+        userNameEditText= view.findViewById(R.id.ed_name_user)
 
         bmiWeightCreatorAdapter = BmiCreatorAdapter()
         bmiHeightCreatorAdapter = BmiCreatorAdapter()
@@ -65,7 +68,8 @@ class AddBmiDetailsFragment : Fragment() {
 
         view.findViewById<MaterialButton>(R.id.btn_calculate).setOnClickListener {
             val triple = Triple(bmiWeightCreatorAdapter.getItemSelected(),bmiHeightCreatorAdapter.getItemSelected(),bmiGenderCreatorAdapter.getItemSelected())
-            addBmiViewModel.calculatePersonBMI(PersonProfile(weight = triple.first.toDouble(), height = triple.second.toDouble(),triple.third)).observe(requireActivity(), Observer {
+            addBmiViewModel.calculatePersonBMI(PersonProfile(weight = triple.first.toDouble(),
+                height = triple.second.toDouble(),triple.third,userNameEditText.text.toString())).observe(requireActivity(), Observer {
                 when(it.status){
                     Status.SUCCESS->{
                         sharedViewModel.setPersonData(personResultData = it.data ?: PersonResultData())
@@ -96,13 +100,13 @@ class AddBmiDetailsFragment : Fragment() {
 
 
 
-        setSelectionToRecyclerView(view,weightRecyclerView,bmiWeightCreatorAdapter)
-        setSelectionToRecyclerView(view,heightRecyclerView,bmiHeightCreatorAdapter)
-        setSelectionToRecyclerView(view,genderRecyclerView,bmiGenderCreatorAdapter)
+        setSelectionToRecyclerView(weightRecyclerView,bmiWeightCreatorAdapter)
+        setSelectionToRecyclerView(heightRecyclerView,bmiHeightCreatorAdapter)
+        setSelectionToRecyclerView(genderRecyclerView,bmiGenderCreatorAdapter)
 
     }
 
-    private fun setSelectionToRecyclerView(view: View,recyclerView: RecyclerView, adapter: BmiCreatorAdapter) {
+    private fun setSelectionToRecyclerView(recyclerView: RecyclerView, adapter: BmiCreatorAdapter) {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(

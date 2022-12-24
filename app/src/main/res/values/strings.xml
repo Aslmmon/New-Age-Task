@@ -5,10 +5,13 @@
     <string name="name_title">Name</string>
     <string name="calculate_title">Calculate</string>
     <string name="calculate_your_body_mass_index_title">Calculate Your Body Mass Index</string>
-    <string name="normal">Normal BMI range: 18.5kg/m2 - 25kg/m2 \n Ponderal Index: 10.64kg/m3</string>
+    <string name="normal">Normal BMI range: 18.5kg/m2 - 25kg/m2 \n Ponderal Index: %s kg/m3</string>
     <string name="weightTitle">Weight</string>
     <string name="heightTitle">Height</string>
     <string name="genderTitle">Gender</string>
     <string name="add_bmi_details">Add BMI Details</string>
     <string name="body_mass_index_title">Body Mass Index</string>
+    <string name="share_title">Share</string>
+    <string name="rate_title">Rate</string>
+    <string name="welcome_message">Hello %s , YOU ARE %s</string>
 </resources>

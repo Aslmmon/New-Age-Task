@@ -27,4 +27,6 @@
     <dimen name="ten_sp">10sp</dimen>
     <dimen name="fourty">40dp</dimen>
     <dimen name="twenty">20dp</dimen>
+    <dimen name="fourten_sp">14sp</dimen>
+    <dimen name="twelve_dp">12dp</dimen>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.newagetask.features.add_bmi_details.data.datasource
 
-import android.util.Log
 import com.example.newagetask.common.roundOffTwoDecimalPoints
 import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
@@ -28,7 +27,8 @@ class LocalDataSourceImplementation : DataSource {
         return PersonResultData(
             bmiResult = bmiResult.roundOffTwoDecimalPoints().toString(),
             bmiResultStatus = bmiStatus,
-            panderalIndexResult = panderalIndex.toString()
+            panderalIndexResult = panderalIndex.roundOffTwoDecimalPoints().toString(),
+            personName = personProfile.personName
         )
     }
 
