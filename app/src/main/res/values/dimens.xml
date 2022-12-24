@@ -19,4 +19,12 @@
     <dimen name="ninty">90dp</dimen>
     <dimen name="thirty">30dp</dimen>
     <dimen name="eighten">18dp</dimen>
+    <dimen name="sixty_four">64dp</dimen>
+    <dimen name="height_bmi_details">415dp</dimen>
+    <dimen name="sixty">60dp</dimen>
+    <dimen name="ninty_two">92sp</dimen>
+    <dimen name="twelve_sp">12sp</dimen>
+    <dimen name="ten_sp">10sp</dimen>
+    <dimen name="fourty">40dp</dimen>
+    <dimen name="twenty">20dp</dimen>
 </resources>

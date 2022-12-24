@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.newagetask.R
+import com.example.newagetask.common.CustomCompoundButtons
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +33,12 @@ class BmiDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.findViewById<CustomCompoundButtons>(R.id.custom_rate_button).setOnClickListener {
+
+        }
+        view.findViewById<CustomCompoundButtons>(R.id.custom_share_button).setOnClickListener {
+
+        }
         sharedViewModel.personResultData.observe(requireActivity(), Observer {
             bindDataToViews(it,view)
         })
