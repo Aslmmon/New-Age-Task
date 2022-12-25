@@ -43,14 +43,17 @@ class BmiDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         changeToolbarTitle()
         (requireActivity() as MainActivity).isBackButtonVisible(true)
-        (requireActivity() as BaseActivity).showNativeAds(R.layout.banner_native_ad_view,view.findViewById<FrameLayout>(R.id.ad_frame))
+        (requireActivity() as BaseActivity).showNativeAds(
+            R.layout.banner_native_ad_view,
+            view.findViewById<FrameLayout>(R.id.ad_frame)
+        )
 
         bmiResultTextView = view.findViewById<TextView>(R.id.tv_bmi_result)
         view.findViewById<CustomCompoundButtons>(R.id.custom_rate_button).setOnClickListener {
             requireActivity().navigateToGooglePlay()
         }
         view.findViewById<CustomCompoundButtons>(R.id.custom_share_button).setOnClickListener {
-            with(requireActivity()){
+            with(requireActivity()) {
                 saveBitmapToGallery(getScreenshotFromView(view.findViewById(R.id.view_constraint)))
             }
 
@@ -60,7 +63,9 @@ class BmiDetailsFragment : Fragment() {
         })
 
     }
-    private fun changeToolbarTitle()  = (requireActivity() as MainActivity).changeToolbarName(resources.getString(R.string.bmi_details))
+
+    private fun changeToolbarTitle() =
+        (requireActivity() as MainActivity).changeToolbarName(resources.getString(R.string.bmi_details))
 
     private fun bindDataToViews(it: PersonResultData?, view: View) {
         bmiResultTextView.text = processStringtoBeWithDifferentFont(it)

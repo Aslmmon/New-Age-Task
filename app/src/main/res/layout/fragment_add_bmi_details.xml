@@ -30,7 +30,7 @@
         android:textCursorDrawable="@null"
         android:singleLine="true"
         android:paddingEnd="@dimen/ten"
-        android:maxLength="100"
+        android:maxLength="50"
         android:gravity="center_vertical"
         android:hint="@string/name_title"
         android:textColor="@color/black"
