@@ -21,7 +21,6 @@ import com.example.newagetask.common.getScreenshotFromView
 import com.example.newagetask.common.navigateToGooglePlay
 import com.example.newagetask.common.saveBitmapToGallery
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
-import com.google.android.gms.ads.nativead.NativeAdView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -44,7 +43,7 @@ class BmiDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         changeToolbarTitle()
         (requireActivity() as MainActivity).isBackButtonVisible(true)
-        (requireActivity() as BaseActivity).showNativeAds(R.layout.native_ad_view,view.findViewById<FrameLayout>(R.id.ad_frame))
+        (requireActivity() as BaseActivity).showNativeAds(R.layout.banner_native_ad_view,view.findViewById<FrameLayout>(R.id.ad_frame))
 
         bmiResultTextView = view.findViewById<TextView>(R.id.tv_bmi_result)
         view.findViewById<CustomCompoundButtons>(R.id.custom_rate_button).setOnClickListener {
