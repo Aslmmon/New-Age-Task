@@ -30,4 +30,6 @@
     <dimen name="fourten_sp">14sp</dimen>
     <dimen name="twelve_dp">12dp</dimen>
     <dimen name="one_fifity">150dp</dimen>
+    <dimen name="one_twenty">120dp</dimen>
+    <dimen name="sixten_sp">16sp</dimen>
 </resources>
