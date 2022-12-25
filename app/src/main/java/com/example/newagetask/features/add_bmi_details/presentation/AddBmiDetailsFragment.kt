@@ -64,7 +64,7 @@ class AddBmiDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initBmiCreatorData(view)
         changeToolbarTitle()
-        (requireActivity() as MainActivity).checkVisibilityForBackButton()
+        (requireActivity() as MainActivity).isBackButtonVisible(false)
 
 
 

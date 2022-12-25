@@ -12,8 +12,8 @@ class MainActivity : BaseActivity() {
         findViewById<CustomToolbar>(R.id.custom_toolbar).changeToolbarName(toolbarTitle)
     }
 
-    fun checkVisibilityForBackButton() {
-        findViewById<CustomToolbar>(R.id.custom_toolbar).setVisibilityOfBackButton(false)
+    fun isBackButtonVisible(isVisibile:Boolean) {
+        findViewById<CustomToolbar>(R.id.custom_toolbar).setVisibilityOfBackButton(isVisibile)
 
     }
 

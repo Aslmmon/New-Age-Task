@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/share_icon"
+        android:src="@drawable/share_icon"
         android:padding="@dimen/twelve_dp"
         android:scaleType="centerCrop"
         android:id="@+id/image"

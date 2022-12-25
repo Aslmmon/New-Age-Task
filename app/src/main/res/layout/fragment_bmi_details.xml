@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/custom_share_button"
-                android:src="@mipmap/share_icon"
+                android:src="@drawable/share_icon"
                 android:text="@string/share_title"
                 android:layout_weight="1" />
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/custom_rate_button"
                 android:text="@string/rate_title"
-                android:src="@mipmap/star_img"
+                android:src="@drawable/star_img"
                 android:layout_weight="1"
 
                 />

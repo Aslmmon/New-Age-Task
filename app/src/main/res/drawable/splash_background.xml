@@ -3,7 +3,7 @@
     <item android:drawable="@android:color/white"/>
     <item>
         <bitmap
-            android:src="@drawable/logo_icon_small"
+            android:src="@drawable/share_icon"
             android:gravity="center"/>
     </item>
 </layer-list>

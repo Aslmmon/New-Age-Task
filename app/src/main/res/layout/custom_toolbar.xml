@@ -19,10 +19,11 @@
         />
 
     <ImageView
-        android:layout_width="@dimen/twenty_five"
-        android:layout_height="@dimen/twenty_five"
+        android:layout_width="@dimen/fifty"
+        android:layout_height="@dimen/fifty"
         android:layout_marginStart="20dp"
         android:id="@+id/back_btn"
+        android:padding="@dimen/ten"
         android:src="@drawable/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
