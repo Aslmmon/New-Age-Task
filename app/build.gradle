@@ -60,14 +60,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     /**
-     * navigation component
+     * navigation component : Kotlin navigationFragment / Ui
      */
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     /**
-     * hilt dependency
+     * hilt dependency : Hilt Dependency
      */
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
     implementation "com.google.dagger:hilt-android:$hilt_version"

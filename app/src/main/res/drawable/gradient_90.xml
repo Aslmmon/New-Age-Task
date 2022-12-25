@@ -8,7 +8,7 @@
                 android:startColor="@color/greenish_shade"
                 android:type="linear"
                 />
-            <corners android:radius="@dimen/fiften" />
+            <corners android:radius="@dimen/five" />
         </shape>
     </item>
 </selector>
