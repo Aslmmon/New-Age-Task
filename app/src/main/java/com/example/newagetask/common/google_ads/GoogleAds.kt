@@ -63,7 +63,7 @@ class GoogleAds @Inject constructor() {
                 /**
                  * set  mInterstitialAd = null if needed to Show Interstitial Ad Once and comment loadInterstitialAd
                  */
-               // mInterstitialAd = null
+                // mInterstitialAd = null
                 loadInterstitialAd(context = context)
 
             }
@@ -100,7 +100,8 @@ class GoogleAds @Inject constructor() {
 
             val adloader = builder.withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    val error = """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}"""
+                    val error =
+                        """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}"""
                 }
             }).build()
 

@@ -1,5 +1,6 @@
 package com.example.newagetask.features.add_bmi_details.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,7 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         holder.itemView.findViewById<View>(R.id.view).visibility = View.VISIBLE
     }
 
-    /**
-     * needed to be refactored to be more performant
-     */
+    @SuppressLint("NotifyDataSetChanged")
     fun setSelectedItem(newPosition: Int) {
         selected_position = newPosition
         notifyDataSetChanged()
