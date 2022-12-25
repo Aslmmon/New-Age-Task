@@ -50,7 +50,7 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun getItemSelected() = differ.currentList[selected_position]
+    fun getItemSelected(): String = differ.currentList[selected_position]
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
