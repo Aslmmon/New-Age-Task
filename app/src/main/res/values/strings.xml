@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">New Age Task</string>
+    <string name="app_name">Aslm Monir Task</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_personal_details">Enter Personal Details</string>
     <string name="name_title">Name</string>
     <string name="calculate_title">Calculate</string>
     <string name="calculate_your_body_mass_index_title">Calculate Your Body Mass Index</string>
-    <string name="normal">Normal BMI range: 18.5kg/m2 - 25kg/m2 \n Ponderal Index: %s kg/m3</string>
+    <string name="normal">Normal BMI range: 18.5kg/m2 – 25kg/m2 \n Ponderal Index: %s kg/m3</string>
     <string name="weightTitle">Weight</string>
     <string name="heightTitle">Height</string>
     <string name="genderTitle">Gender</string>
