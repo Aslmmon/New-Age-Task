@@ -30,14 +30,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddBmiDetailsFragment : Fragment() {
-     var bmiWeightCreatorAdapter= BmiCreatorAdapter()
-     var bmiHeightCreatorAdapter= BmiCreatorAdapter()
-     var bmiGenderCreatorAdapter= BmiCreatorAdapter()
-     var list = mutableListOf<PersonData>()
+    var bmiWeightCreatorAdapter = BmiCreatorAdapter()
+    var bmiHeightCreatorAdapter = BmiCreatorAdapter()
+    var bmiGenderCreatorAdapter = BmiCreatorAdapter()
+    var list = mutableListOf<PersonData>()
     private val addBmiViewModel: AddBmiViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    lateinit var userNameEditText:EditText
-
+    lateinit var userNameEditText: EditText
 
 
     override fun onCreateView(
@@ -46,15 +45,15 @@ class AddBmiDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_bmi_details, container, false)
-        userNameEditText= view.findViewById(R.id.ed_name_user)
+        userNameEditText = view.findViewById(R.id.ed_name_user)
 
         addBmiViewModel.getPersonsData().observe(requireActivity(), Observer {
-            when(it.status){
-                Status.SUCCESS->{
+            when (it.status) {
+                Status.SUCCESS -> {
                     submitDataToAdapter(it.data)
                 }
-                Status.ERROR ->{}
-                Status.LOADING ->{}
+                Status.ERROR -> {}
+                Status.LOADING -> {}
             }
         })
 
@@ -71,24 +70,37 @@ class AddBmiDetailsFragment : Fragment() {
 
 
         view.findViewById<MaterialButton>(R.id.btn_calculate).setOnClickListener {
-            val triple = Triple(bmiWeightCreatorAdapter.getItemSelected(),bmiHeightCreatorAdapter.getItemSelected(),bmiGenderCreatorAdapter.getItemSelected())
-            addBmiViewModel.calculatePersonBMI(PersonProfile(weight = triple.first.toDouble(),
-                height = triple.second.toDouble(), gender = triple.third,userNameEditText.text.toString())).observe(requireActivity(), Observer {
-                when(it.status){
-                    Status.SUCCESS->{
-                        sharedViewModel.setPersonData(personResultData = it.data ?: PersonResultData())
+            val triple = Triple(
+                bmiWeightCreatorAdapter.getItemSelected(),
+                bmiHeightCreatorAdapter.getItemSelected(),
+                bmiGenderCreatorAdapter.getItemSelected()
+            )
+            addBmiViewModel.calculatePersonBMI(
+                PersonProfile(
+                    weight = triple.first.toDouble(),
+                    height = triple.second.toDouble(),
+                    gender = triple.third,
+                    userNameEditText.text.toString()
+                )
+            ).observe(requireActivity(), Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        sharedViewModel.setPersonData(
+                            personResultData = it.data ?: PersonResultData()
+                        )
                         (requireActivity() as BaseActivity).showInterstitialAdd()
                         findNavController().navigate(R.id.goToBmiDetailsFragment)
                     }
-                    Status.ERROR ->{}
-                    Status.LOADING ->{}
+                    Status.ERROR -> {}
+                    Status.LOADING -> {}
                 }
             })
 
         }
     }
 
-    private fun changeToolbarTitle()  = (requireActivity() as MainActivity).changeToolbarName(resources.getString(R.string.add_bmi_details))
+    private fun changeToolbarTitle() =
+        (requireActivity() as MainActivity).changeToolbarName(resources.getString(R.string.add_bmi_details))
 
 
     private fun submitDataToAdapter(personData: PersonData?) {
@@ -104,24 +116,27 @@ class AddBmiDetailsFragment : Fragment() {
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(weightRecyclerView)
         snapHelper.attachToRecyclerView(heightRecyclerView)
+        snapHelper.attachToRecyclerView(genderRecyclerView)
+
         weightRecyclerView.adapter = bmiWeightCreatorAdapter
         heightRecyclerView.adapter = bmiHeightCreatorAdapter
-       genderRecyclerView.adapter = bmiGenderCreatorAdapter
+        genderRecyclerView.adapter = bmiGenderCreatorAdapter
 
 
 
-        setSelectionToRecyclerView(weightRecyclerView,bmiWeightCreatorAdapter)
-        setSelectionToRecyclerView(heightRecyclerView,bmiHeightCreatorAdapter)
-        setSelectionToRecyclerView(genderRecyclerView,bmiGenderCreatorAdapter)
+        setSelectionToRecyclerView(weightRecyclerView, bmiWeightCreatorAdapter)
+        setSelectionToRecyclerView(heightRecyclerView, bmiHeightCreatorAdapter)
+        setSelectionToRecyclerView(genderRecyclerView, bmiGenderCreatorAdapter)
 
     }
 
     private fun setSelectionToRecyclerView(recyclerView: RecyclerView, adapter: BmiCreatorAdapter) {
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(
             MiddleItemFinder(
-                requireContext(), layoutManager,list, adapter
+                requireContext(), layoutManager, list, adapter
             )
         )
     }

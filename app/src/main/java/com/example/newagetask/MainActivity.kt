@@ -1,6 +1,5 @@
 package com.example.newagetask
 
-import android.os.Bundle
 import com.example.newagetask.common.CustomToolbar
 import com.example.newagetask.common.base.BaseActivity
 
@@ -12,12 +11,9 @@ class MainActivity : BaseActivity() {
         findViewById<CustomToolbar>(R.id.custom_toolbar).changeToolbarName(toolbarTitle)
     }
 
-    fun isBackButtonVisible(isVisibile:Boolean) {
+    fun isBackButtonVisible(isVisibile: Boolean) {
         findViewById<CustomToolbar>(R.id.custom_toolbar).setVisibilityOfBackButton(isVisibile)
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 }
