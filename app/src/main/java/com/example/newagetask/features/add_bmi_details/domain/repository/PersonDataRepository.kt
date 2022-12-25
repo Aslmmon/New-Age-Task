@@ -5,6 +5,6 @@ import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 
 interface PersonDataRepository {
-    fun getPersonData() : PersonData
-    fun calculateBMI(personProfile: PersonProfile) : PersonResultData
+    fun getPersonData(): PersonData
+    fun calculateBMI(personProfile: PersonProfile): PersonResultData
 }

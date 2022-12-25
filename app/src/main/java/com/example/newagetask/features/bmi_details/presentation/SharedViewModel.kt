@@ -10,7 +10,7 @@ class SharedViewModel : ViewModel() {
     private val _personResultData = MutableLiveData<PersonResultData>()
     val personResultData: LiveData<PersonResultData> = _personResultData
 
-    fun setPersonData(personResultData: PersonResultData){
-         _personResultData.value = personResultData
-     }
+    fun setPersonData(personResultData: PersonResultData) {
+        _personResultData.value = personResultData
+    }
 }
