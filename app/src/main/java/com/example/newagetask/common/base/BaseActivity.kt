@@ -19,7 +19,7 @@ const val NATIVE_UNIT_ID = "ca-app-pub-3940256099942544/2247696110"
 const val TAG="ad"
 
 /**
- * Needed to be refactored to another separated Class
+ * Needed to be refactor of ADS to another separated Class
  */
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {
@@ -147,14 +147,6 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showInterstitialAdd(){
         if (mInterstitialAd != null) {
             mInterstitialAd?.show(this)
-        } else {
-            Log.d(TAG, "The interstitial ad wasn't ready yet.")
-        }
-    }
-
-    fun stopInterstitialAdd(){
-        if (mInterstitialAd != null) {
-            mInterstitialAd = null
         } else {
             Log.d(TAG, "The interstitial ad wasn't ready yet.")
         }

@@ -50,9 +50,9 @@
             android:id="@+id/tv_bmi_result"
             android:layout_width="match_parent"
             android:ellipsize="end"
-            android:layout_marginTop="@dimen/twenty"
+            android:layout_marginTop="@dimen/thirty"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:textAlignment="center"
             android:singleLine="true"
             tools:text="18.61"
             android:textColor="@color/white"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/white"
-            android:layout_marginHorizontal="50dp"
+            android:layout_marginHorizontal="@dimen/fifty_dp"
             />
 
         <TextView
