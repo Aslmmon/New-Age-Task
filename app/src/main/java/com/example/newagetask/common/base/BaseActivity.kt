@@ -41,30 +41,27 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun loadAds() {
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, AD_UNIT_ID, adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                mInterstitialAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                mInterstitialAd = interstitialAd
-            }
-        })
-        listenForEventsOfLoadedAd()
+//        val adRequest = AdRequest.Builder().build()
+//        InterstitialAd.load(this, AD_UNIT_ID, adRequest, object : InterstitialAdLoadCallback() {
+//            override fun onAdFailedToLoad(adError: LoadAdError) {
+//                mInterstitialAd = null
+//            }
+//
+//            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+//                mInterstitialAd = interstitialAd
+//            }
+//        })
+//        listenForEventsOfLoadedAd()
     }
 
     fun showNativeAds(nativeAdLayoutId:Int, frame:FrameLayout){
 
-        val builder = AdLoader.Builder(this, AD_MANAGER_AD_UNIT_ID)
-
+       val builder =  AdLoader.Builder(this, NATIVE_UNIT_ID)
         builder.forNativeAd {  nativeAd->
             // If this callback occurs after the activity is destroyed, you must call
             // destroy and return or you may get a memory leak.
             var activityDestroyed = false
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                activityDestroyed = isDestroyed
-            }
+            activityDestroyed = isDestroyed
             if (activityDestroyed || isFinishing || isChangingConfigurations) {
                  nativeAd.destroy()
                 return@forNativeAd
@@ -74,36 +71,28 @@ abstract class BaseActivity : AppCompatActivity() {
             // otherwise you will have a memory leak.
             currentUnifiedNativeAd?.destroy()
             currentUnifiedNativeAd = nativeAd
-            val adView = layoutInflater.inflate(nativeAdLayoutId, null) as NativeAdView
+            val adView = layoutInflater.inflate(R.layout.native_add, null,false) as NativeAdView
             populateUnifiedNativeAdView(nativeAd, adView)
             frame.removeAllViews()
             frame.addView(adView)
 
-            val adLoader = builder.withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    val error = """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}
-          """
-                    Toast.makeText(
-                        this@BaseActivity, "Failed to load native ad with error $error",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }).build()
 
-            adLoader.loadAd(AdRequest.Builder().build())
 
-            val adLoader2 = AdLoader.Builder(this, NATIVE_UNIT_ID)
-            .withAdListener(object : AdListener() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
+
+        }
+
+        val adloader = builder.withAdListener(object : AdListener() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                val error = """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}"""
                 Toast.makeText(
-                    this@BaseActivity, "Failed to load native ad with error $adError",
+                    this@BaseActivity, "Failed to load native ad with error $error",
                     Toast.LENGTH_SHORT
                 ).show()
-                // Handle the failure by logging, altering the UI, and so on.
             }
-        })
-            .build()
-        }
+        }).build()
+
+        adloader.loadAd(AdRequest.Builder().build())
+
     }
 
 
@@ -158,7 +147,7 @@ abstract class BaseActivity : AppCompatActivity() {
             adView.bodyView?.visibility = View.INVISIBLE
         } else {
             adView.bodyView?.visibility = View.VISIBLE
-            (adView.bodyView as TextView).text = nativeAd.body
+//            (adView.bodyView as TextView).text = nativeAd.body
         }
 
         if (nativeAd.callToAction == null) {
@@ -181,20 +170,20 @@ abstract class BaseActivity : AppCompatActivity() {
             adView.priceView?.visibility = View.INVISIBLE
         } else {
             adView.priceView?.visibility = View.VISIBLE
-            (adView.priceView as TextView).text = nativeAd.price
+           // (adView.priceView as TextView).text = nativeAd.price
         }
 
         if (nativeAd.store == null) {
             adView.storeView?.visibility = View.INVISIBLE
         } else {
             adView.storeView?.visibility = View.VISIBLE
-            (adView.storeView as TextView).text = nativeAd.store
+           // (adView.storeView as TextView).text = nativeAd.store
         }
 
         if (nativeAd.starRating == null) {
             adView.starRatingView?.visibility = View.INVISIBLE
         } else {
-            (adView.starRatingView as RatingBar).rating = nativeAd.starRating!!.toFloat()
+           // (adView.starRatingView as RatingBar).rating = nativeAd.starRating!!.toFloat()
             adView.starRatingView?.visibility = View.VISIBLE
         }
 

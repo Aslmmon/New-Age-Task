@@ -1,9 +1,6 @@
 package com.example.newagetask
 
 import android.os.Bundle
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.newagetask.common.CustomToolbar
 import com.example.newagetask.common.base.BaseActivity
 

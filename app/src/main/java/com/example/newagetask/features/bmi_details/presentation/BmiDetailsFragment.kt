@@ -43,7 +43,7 @@ class BmiDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         changeToolbarTitle()
-       // (requireActivity() as BaseActivity).showNativeAds(R.id.native_add,view.findViewById<FrameLayout>(R.id.ad_frame))
+        (requireActivity() as BaseActivity).showNativeAds(R.id.native_add,view.findViewById<FrameLayout>(R.id.ad_frame))
 
         bmiResultTextView = view.findViewById<TextView>(R.id.tv_bmi_result)
         view.findViewById<CustomCompoundButtons>(R.id.custom_rate_button).setOnClickListener {
