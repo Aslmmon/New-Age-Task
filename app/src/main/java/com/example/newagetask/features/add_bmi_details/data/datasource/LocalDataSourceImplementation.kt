@@ -1,5 +1,7 @@
 package com.example.newagetask.features.add_bmi_details.data.datasource
 
+import android.util.Log
+import com.example.newagetask.common.getHeightMeter
 import com.example.newagetask.common.roundOffTwoDecimalPoints
 import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
@@ -9,20 +11,22 @@ const val minimumWeight = 20
 const val maximumWeight = 150
 const val minimumHeight = 50
 const val maximumHeight = 200
+const val male_gender = "Male"
+const val female_gender = "Female"
 
 class LocalDataSourceImplementation : DataSource {
     override fun getPersondata(): PersonData {
         return PersonData(
-            (minimumWeight..maximumWeight).map { it->it.toString() }.toMutableList(),
-            (minimumHeight..maximumHeight).map { it->it.toString() }.toMutableList(),
-            mutableListOf("Male","Female"),
+            (minimumWeight..maximumWeight).map { it -> it.toString() }.toMutableList(),
+            (minimumHeight..maximumHeight).map { it -> it.toString() }.toMutableList(),
+            mutableListOf(male_gender, female_gender),
         )
     }
 
     override fun calculateBMI(personProfile: PersonProfile): PersonResultData {
         val bmiResult = calculateBodyMassIndex(personProfile)
         val bmiStatus = getBMIStatus(bmiResult = bmiResult)
-        val panderalIndex = getPanderalIndex(personProfile)
+        val panderalIndex = getPandoralIndex(personProfile)
 
         return PersonResultData(
             bmiResult = bmiResult.roundOffTwoDecimalPoints().toString(),
@@ -33,7 +37,7 @@ class LocalDataSourceImplementation : DataSource {
     }
 
     private fun calculateBodyMassIndex(personProfile: PersonProfile) =
-        (personProfile.weight.div(personProfile.height * personProfile.height)) * 10000
+        (personProfile.weight.div(personProfile.height.getHeightMeter() * personProfile.height.getHeightMeter()))
 
     private fun getBMIStatus(bmiResult: Double): String {
         return when (true) {
@@ -46,9 +50,10 @@ class LocalDataSourceImplementation : DataSource {
         }
     }
 
-    private fun getPanderalIndex(personProfile: PersonProfile): Double {
-        val ponderalIndex: Double = personProfile.weight.div(Math.cbrt(personProfile.height))
-        return ponderalIndex
+    private fun getPandoralIndex(personProfile: PersonProfile): Double {
+        val heightResult =
+            (personProfile.height.getHeightMeter() * personProfile.height.getHeightMeter() * personProfile.height.getHeightMeter())
+        return (personProfile.weight.div(heightResult))
 
     }
 

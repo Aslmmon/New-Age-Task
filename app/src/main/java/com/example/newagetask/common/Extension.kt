@@ -21,17 +21,19 @@ import java.io.OutputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-const val sharingImageType="image/*"
-const val shareViaTitle="Share Via"
-const val imageExtension=".jpg"
+const val sharingImageType = "image/*"
+const val shareViaTitle = "Share Via"
+const val imageExtension = ".jpg"
 const val googlePlayLink = "https://play.google.com/"
-const val qualityImageTaken=100
+const val qualityImageTaken = 100
 
 fun Double.roundOffTwoDecimalPoints(): Double? {
     val df = DecimalFormat("#.##")
     df.roundingMode = RoundingMode.CEILING
     return df.format(this).toDouble()
 }
+
+fun Double.getHeightMeter() = this.div(100)
 
 fun Context.navigateToGooglePlay() {
     try {
@@ -49,7 +51,8 @@ fun Context.navigateToGooglePlay() {
 fun Context.getScreenshotFromView(view: View): Bitmap? {
     var screenshot: Bitmap? = null
     try {
-        screenshot = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        screenshot =
+            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(screenshot)
         canvas.drawColor(Color.WHITE)
         view.draw(canvas)
@@ -70,13 +73,15 @@ fun Context?.saveBitmapToGallery(bitmap: Bitmap?) {
                 put(MediaStore.MediaColumns.MIME_TYPE, sharingImageType)
                 put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
             }
-            val imageUri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            val imageUri: Uri? =
+                resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
             shareImage(imageUri)
             fos = imageUri?.let { resolver.openOutputStream(it) }
         }
     } else {
         // These for devices running on android < Q
-        val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        val imagesDir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         val image = File(imagesDir, filename)
         this?.shareImage(image.toUri())
         fos = FileOutputStream(image)
@@ -89,9 +94,9 @@ fun Context?.saveBitmapToGallery(bitmap: Bitmap?) {
 }
 
 fun Context.shareImage(imageUri: Uri?) {
-        val sharingIntent =  Intent(android.content.Intent.ACTION_SEND);
+    val sharingIntent = Intent(android.content.Intent.ACTION_SEND);
     sharingIntent.type = sharingImageType
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-        startActivity(Intent.createChooser(sharingIntent, shareViaTitle));
+    sharingIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+    startActivity(Intent.createChooser(sharingIntent, shareViaTitle));
 
 }

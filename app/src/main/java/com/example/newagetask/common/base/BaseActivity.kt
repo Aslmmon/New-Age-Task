@@ -14,10 +14,6 @@ import com.google.android.gms.ads.nativead.NativeAdView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
-/**
- * Needed to be refactor of ADS to another separated Class
- */
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {
 
