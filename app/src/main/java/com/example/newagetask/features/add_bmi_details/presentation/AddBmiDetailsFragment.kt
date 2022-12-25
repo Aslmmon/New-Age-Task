@@ -21,6 +21,8 @@ import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
 import com.example.newagetask.features.add_bmi_details.data.model.PersonResultData
 import com.example.newagetask.features.add_bmi_details.presentation.adapter.BmiCreatorAdapter
+import com.example.newagetask.features.add_bmi_details.presentation.viewModel.AddBmiViewModel
+import com.example.newagetask.features.add_bmi_details.presentation.viewModel.Status
 import com.example.newagetask.features.bmi_details.presentation.SharedViewModel
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint

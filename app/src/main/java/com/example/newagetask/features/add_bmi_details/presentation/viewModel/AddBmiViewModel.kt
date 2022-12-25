@@ -1,4 +1,4 @@
-package com.example.newagetask.features.add_bmi_details.presentation
+package com.example.newagetask.features.add_bmi_details.presentation.viewModel
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
