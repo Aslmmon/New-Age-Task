@@ -27,6 +27,16 @@
         <TextView style="@style/Theme.NewAgeTask.AdAttribution"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tv_ad_title"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/fiften"
+            android:layout_height="@dimen/fiften"
+            android:layout_marginEnd="@dimen/five"
+            android:src="@drawable/native_add_blue_icon"
+            app:layout_constraintEnd_toStartOf="@id/tv_ad_title"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
 

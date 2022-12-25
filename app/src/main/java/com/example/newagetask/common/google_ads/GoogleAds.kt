@@ -112,6 +112,9 @@ class GoogleAds @Inject constructor() {
 
 
     private fun populateUnifiedNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        /**
+         * populating native Ad View
+         */
         adView.headlineView = adView.findViewById(R.id.ad_headline)
         adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
         adView.iconView = adView.findViewById(R.id.ad_app_icon)
