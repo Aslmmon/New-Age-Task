@@ -5,22 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newagetask.R
-import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 
 
 class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var selected_position = 0 // You have to set this globally in the Adapter class
+    private var selected_position = 0 // You have to set this globally in the Adapter class
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolderItemLayout).setData(differ.currentList[position])
         holder.setIsRecyclable(false)
         if (selected_position == position){
-            holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTypeface(null, Typeface.BOLD);
+            val typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.poppins_bold_700)
+            holder.itemView.findViewById<TextView>(R.id.tv_item_text).typeface = typeface
             holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTextColor(holder.itemView.resources.getColor(R.color.primary))
             holder.itemView.findViewById<View>(R.id.view).visibility = View.VISIBLE
 

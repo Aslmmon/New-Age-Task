@@ -16,7 +16,6 @@
         android:id="@+id/tv_item_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/poppins_bold_700"
         android:textSize="@dimen/fourten_sp"
         />
     <View
