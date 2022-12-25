@@ -1,6 +1,5 @@
 package com.example.newagetask.features.add_bmi_details.presentation.adapter
 
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,27 +18,35 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolderItemLayout).setData(differ.currentList[position])
         holder.setIsRecyclable(false)
-        if (selected_position == position){
-            val typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.poppins_bold_700)
-            holder.itemView.findViewById<TextView>(R.id.tv_item_text).typeface = typeface
-            holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTextColor(holder.itemView.resources.getColor(R.color.primary))
-            holder.itemView.findViewById<View>(R.id.view).visibility = View.VISIBLE
+        if (selected_position == position) {
+            changeSelectedItemFont(holder)
+        } else
+            returnNormalItem(holder)
 
-        }else{
-            holder.itemView.findViewById<TextView>(R.id.tv_item_text).setTextColor(holder.itemView.resources.getColor(R.color.gray_color))
-            holder.itemView.findViewById<View>(R.id.view).visibility = View.GONE
-
-        }
         holder.itemView.setOnClickListener {
             setSelectedItem(position)
         }
 
     }
 
+    private fun returnNormalItem(holder: RecyclerView.ViewHolder) {
+        holder.itemView.findViewById<TextView>(R.id.tv_item_text)
+            .setTextColor(holder.itemView.resources.getColor(R.color.gray_color))
+        holder.itemView.findViewById<View>(R.id.view).visibility = View.GONE
+    }
+
+    private fun changeSelectedItemFont(holder: RecyclerView.ViewHolder) {
+        val typeface = ResourcesCompat.getFont(holder.itemView.context, R.font.poppins_bold_700)
+        holder.itemView.findViewById<TextView>(R.id.tv_item_text).typeface = typeface
+        holder.itemView.findViewById<TextView>(R.id.tv_item_text)
+            .setTextColor(holder.itemView.resources.getColor(R.color.primary))
+        holder.itemView.findViewById<View>(R.id.view).visibility = View.VISIBLE
+    }
+
     /**
-     * needed to be refactored
+     * needed to be refactored to be more performant
      */
-    fun setSelectedItem(newPosition: Int){
+    fun setSelectedItem(newPosition: Int) {
         selected_position = newPosition
         notifyDataSetChanged()
     }
@@ -50,10 +57,10 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): ViewHolderItemLayout {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.bmi_single_item, parent, false)
-                return ViewHolderItemLayout(view)
-        }
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.bmi_single_item, parent, false)
+        return ViewHolderItemLayout(view)
+    }
 
     override fun getItemCount() = differ.currentList.size
 
@@ -63,6 +70,7 @@ class BmiCreatorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         }
     }
+
     private val differCallback = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem

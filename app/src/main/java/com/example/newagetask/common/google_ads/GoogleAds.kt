@@ -38,9 +38,9 @@ class GoogleAds @Inject constructor() {
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
                 mInterstitialAd = interstitialAd
+                listenForEventsOfLoadedAd(context)
             }
         })
-        listenForEventsOfLoadedAd()
     }
 
 
@@ -52,7 +52,7 @@ class GoogleAds @Inject constructor() {
         }
     }
 
-    private fun listenForEventsOfLoadedAd() {
+    private fun listenForEventsOfLoadedAd(context: Context) {
         mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdClicked() {
                 Log.e(TAG, "Ad was clicked.")
@@ -60,7 +60,12 @@ class GoogleAds @Inject constructor() {
 
             override fun onAdDismissedFullScreenContent() {
                 Log.e(TAG, "Ad dismissed fullscreen content.")
-                mInterstitialAd = null
+                /**
+                 * set  mInterstitialAd = null if needed to Show Interstitial Ad Once and comment loadInterstitialAd
+                 */
+               // mInterstitialAd = null
+                loadInterstitialAd(context = context)
+
             }
 
             override fun onAdImpression() {
@@ -68,6 +73,7 @@ class GoogleAds @Inject constructor() {
             }
 
             override fun onAdShowedFullScreenContent() {
+                mInterstitialAd = null
                 Log.e(TAG, "Ad showed fullscreen content.")
             }
         }
@@ -94,12 +100,7 @@ class GoogleAds @Inject constructor() {
 
             val adloader = builder.withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    val error =
-                        """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}"""
-                    Toast.makeText(
-                        context, "Failed to load native ad with error $error",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val error = """"   domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}"""
                 }
             }).build()
 
