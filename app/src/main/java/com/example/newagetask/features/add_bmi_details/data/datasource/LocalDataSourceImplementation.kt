@@ -1,7 +1,9 @@
 package com.example.newagetask.features.add_bmi_details.data.datasource
 
 import android.util.Log
+import com.example.newagetask.common.getCubicSquare
 import com.example.newagetask.common.getHeightMeter
+import com.example.newagetask.common.getMultipleSquare
 import com.example.newagetask.common.roundOffTwoDecimalPoints
 import com.example.newagetask.features.add_bmi_details.data.model.PersonData
 import com.example.newagetask.features.add_bmi_details.data.model.PersonProfile
@@ -37,7 +39,7 @@ class LocalDataSourceImplementation : DataSource {
     }
 
     private fun calculateBodyMassIndex(personProfile: PersonProfile) =
-        (personProfile.weight.div(personProfile.height.getHeightMeter() * personProfile.height.getHeightMeter()))
+        (personProfile.weight.div(personProfile.height.getHeightMeter().getMultipleSquare()))
 
     private fun getBMIStatus(bmiResult: Double): String {
         return when (true) {
@@ -52,7 +54,7 @@ class LocalDataSourceImplementation : DataSource {
 
     private fun getPandoralIndex(personProfile: PersonProfile): Double {
         val heightResult =
-            (personProfile.height.getHeightMeter() * personProfile.height.getHeightMeter() * personProfile.height.getHeightMeter())
+            (personProfile.height.getHeightMeter().getCubicSquare())
         return (personProfile.weight.div(heightResult))
 
     }

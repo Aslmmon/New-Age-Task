@@ -34,6 +34,9 @@ fun Double.roundOffTwoDecimalPoints(): Double? {
 }
 
 fun Double.getHeightMeter() = this.div(100)
+fun Double.getMultipleSquare() = this * this
+fun Double.getCubicSquare() = this * this * this
+
 
 fun Context.navigateToGooglePlay() {
     try {
