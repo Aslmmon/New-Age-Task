@@ -8,21 +8,14 @@ This project is Simple BMI(Body Mass Index) and Ponderal Index calculator , depe
 
 ## Aim project ?  :thinking:
 Part of Assessment Task
-onBoarding Feature            |  Splash Animated Feature
-:-------------------------:|:-------------------------:
-<img src="https://github.com/Aslmmon/flutter_mini_samples/blob/main/assets/portfolio/onboarding.gif"  width="200" height="450" />  |     <img src="https://github.com/Aslmmon/flutter_mini_samples/blob/main/assets/portfolio/splash_anim.gif"  width="200" height="450" />
+
+## Demo Project ?  :thinking:            
+
+<img src="https://media.giphy.com/media/GwiaOfRw1I2XfwOqvu/giphy.gif" width="300">
 
 
 <!--- 
-
-<p>
-<img src="https://github.com/Aslmmon/flutter_mini_samples/blob/main/assets/portfolio/onboarding.gif"  width="200" height="450" />
   
-   <em> ** onBoarding Feature ** </em>
-   
-   <em> ** Splash Animated Feature ** </em>
-   
-</p>   
  --->
 ## Technology used ? :thinking:
 - Pure Kotlin
